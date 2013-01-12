@@ -1,0 +1,74 @@
+#!usr/bin/perl -w
+#input file format:
+#[number_of_input_strings]
+#[job_1_weight] [job_1_lenght]
+#[job_2_weight] [job_2_lenght]
+
+
+$number_of_jobs = <>;
+
+$result_sum = 0;
+$completion_time = 0;
+
+$result_sum_ratio = 0;
+$completion_time_ratio = 0;
+
+my %hash = ();
+foreach my $i (0 .. $number_of_jobs-1 )
+{
+	$strings[$i] = [split (/\s+/, <>)];
+	$hash{$i} = $strings[$i][0] - $strings[$i][1];
+	$hash_ratio{$i} = $strings[$i][0] / $strings[$i][1];
+	print "$strings[$i][0]  $strings[$i][1] \n";
+}
+
+my @indexes = sort {  $hash{ $a } <=> $hash{ $b }} keys (%hash);
+@indexes = reverse @indexes;
+
+my @indexes_ratio = sort {  $hash_ratio{ $a } <=> $hash_ratio{ $b }} keys (%hash_ratio);
+@indexes_ratio = reverse @indexes_ratio;
+
+my %hash_weight = ();
+my %hash_temp_ratio = ();
+
+$j = 0;
+while ( defined( $indexes[$j])   )
+{
+	%hash_weight = ();
+	$hash_weight{$j} = $strings[$indexes[$j]][0];
+	while ( $hash{$indexes[$j]} == $hash{$indexes[$j+1]} )
+	{
+		$j++;
+		$hash_weight{$j} = $strings[$indexes[$j]][0];
+	}
+	
+	my @equal_dif_indexes = sort {  $hash_weight{ $a } <=> $hash_weight{ $b }} keys (%hash_weight);
+	@equal_dif_indexes = reverse @equal_dif_indexes ;
+	foreach my $k (0 .. $#equal_dif_indexes)
+	{
+		$completion_time += $strings[ $indexes[ $equal_dif_indexes[ $k ] ]][1];
+
+		$result_sum += $completion_time * $strings[ $indexes[ $equal_dif_indexes[ $k ] ]][0];
+	}
+#	print "@equal_keys_indexes \n";
+	$j++;
+}
+
+$j = 0;
+while ( defined( $indexes_ratio[$j])   )
+{
+	$completion_time_ratio += $strings[ $indexes_ratio[ $j ]][1];
+	$result_sum_ratio += $completion_time_ratio * $strings[ $indexes_ratio[ $j ]][0];
+
+	$j++;
+}
+print "\$completion_time $completion_time \n";
+print "\$completion_time_ratio $completion_time_ratio \n";
+
+print "\$result_sum $result_sum \n";
+print "\$result_sum_ratio $result_sum_ratio \n";
+		
+@equal_keys_indexes = ();
+
+#print "@indexes \n";
+
