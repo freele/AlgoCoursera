@@ -12,7 +12,7 @@ use Graph::Undirected;
 use Heap::Simple;
 
 
-open InputGraph ,'<Algo2_PA2Q2_input.txt';
+open InputGraph ,'<Algo2_PA2Q1_input.txt';
 
 my $number_of_nodes = <InputGraph>;
 my $k_number_of_clusters = 4;
@@ -40,32 +40,39 @@ while (<InputGraph>)
 	$cost = $input_string [2];
 	#$cost = $input_string[2];
 	
-	print "cost = ". "$cost \n";
-	print @input_string;
-#	my @edge = ($node1, $node2);
-	print "cost = " . "$cost" . "   number = " . "$i \n";
+#	print "cost = ". "$cost \n";
+#	print @input_string;
+#	print "cost = " . "$cost" . "   number = " . "$i \n";
 	$heap->key_insert($cost, $i);
-#	$inputGraphG ->add_weighted_edge ($node1, $i);
-#	@input_string = split (/]s+/, <InputGraph>);
 	$i++;
 #	print @input_string;
 }
 
 #building UF with data in the heap
-if (1)
+
+$i = 0;
+my $j;
+while ($i <=  $number_of_nodes - $k_number_of_clusters  -1 )
 {
-while ($i >=  $k_number_of_clusters-1 )
-{
-	$i--;
 	my $dist = $heap->top_key;
-	my $j = $heap->extract_top;
+	$j = $heap->extract_top;
 	
-	print "j= "."$j". " dist = " . "$dist" . " \n";
-	$UnionFind->union($node1[$j], $node2[$j]);
-}
+#	print "i= $i, j= $j, dist = $dist  \n";
+	
+	if ( !$UnionFind->same($node1[$j], $node2[$j]))
+	{
+		$UnionFind->union($node1[$j], $node2[$j]);
+		$i++;
+	}
 }
 
 my $Result = $heap->top_key;
+while ($UnionFind->same($node1[$j], $node2[$j]))
+{
+	$Result = $heap->top_key;
+	$j = $heap->extract_top;
+}
+
 print "Result = " . "$Result";
 
 
