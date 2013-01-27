@@ -1,5 +1,5 @@
   #!usr/bin/perl -w
-  use strict;
+  #use strict;
   
   use Heap;
   use Heap::Elem;
@@ -9,11 +9,11 @@
 
   use Heap::Elem::Num(NumElem);
 
-  foreach $i ( 1..100 ) {
+  foreach my $i ( 1..100 ) {
       $elem = NumElem( $i );
       $heap->add( $elem );
   }
 
   while( defined( $elem = $heap->extract_top ) ) {
-      print "Smallest is ", $elem->val, "\n";
+      print "Smallest is $elem->val \n";
   }
