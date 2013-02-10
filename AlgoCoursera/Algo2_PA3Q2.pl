@@ -38,22 +38,29 @@ open InputInfo, 'Algo2_PA3Q2_input.txt';
 sub best_value_for_weight{
 	my ( $item, $weight ) = @_;
 	print "weight = $weight item = $item\n";
-	if ( !exists $BVFW{$weight} ){
+	if ( !exists $BVFW{"$weight $item"} ){
 		if ($weight >= $weights[$item]){
-			$BVFW{"$weight"} = &max ( best_value_for_weight ($item - 1, $weight), best_value_for_weight ($item - 1, $weight - $weights[$item]) + $values[$item] );
+			if ($item == 1){
+				$BVFW{"$weight $item"} = &max ($BVFW{"$weight"}, $values[$item]);
+			}
+			else{
+				$BVFW{"$weight $item"} = &max ( best_value_for_weight ($item - 1, $weight), best_value_for_weight ($item - 1, $weight - $weights[$item]) + $values[$item] );
+			}
 		}
 		else{
 			if ($item == 1){
-				$BVFW{"$weight"} = 0;
+				$BVFW{"$weight $item"} = 0;
 			}
 			else{
-			$BVFW{"$weight"} = best_value_for_weight ($item - 1, $weight);
+				$BVFW{"$weight $item"} = &best_value_for_weight ($item - 1, $weight);
 			}
 		}
 	}
-
-	return $BVFW{"$weight"};
+	my $temp = "$weight $item";
+	print "$BVFW{$temp} \n";
+	return $BVFW{"$temp"};
 }
+
 
  
  #Main algorithm
@@ -62,15 +69,4 @@ foreach ( 0..$knapsack_size){
 	$A[0][$_] = 0;
 }
 
-#foreach my $i  ( 1..$number_of_items){
-	best_value_for_weight ($number_of_items, $knapsack_size);
-#	foreach my $temp_w ( 0..$knapsack_size){
-#	if ( $temp_w >= $weights[$i]){
-#		$A[$i][$temp_w] = &max ( $A[$i-1][$temp_w], ($A[$i-1][$temp_w - $weights[$i]] + $values[$i]) )
-#	}else{
-#		$A[$i][$temp_w] = $A[$i-1][$temp_w];
-#	}
-#	print "i=$i, w=$temp_w, A=$A[$i][$temp_w] \n";
-#}
-#}
  print "A=$A[-1][-1] \n";
