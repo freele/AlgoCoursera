@@ -49,7 +49,7 @@ sub best_value_for_weight{
 		}
 		else{
 			if ($item == 1){
-				$BVFW{"$weight $item"} = 0;
+				$BVFW{"$weight $item"} = 0;dŗ
 			}
 			else{
 				$BVFW{"$weight $item"} = &best_value_for_weight ($item - 1, $weight);
@@ -69,4 +69,5 @@ foreach ( 0..$knapsack_size){
 	$A[0][$_] = 0;
 }
 
- print "A=$A[-1][-1] \n";
+best_value_for_weight ($number_of_items, $knapsack_size);
+print "A=$A[-1][-1] \n";
