@@ -17,3 +17,9 @@ print @test . "\n";
 print ${ $test[0] } . "\n";
 $var1 = 123;
 print ${ $test[0] };
+
+my @real_numbers = ();                                 
+
+ my $pointers_to_nums = \@real_numbers; 
+ $real_numbers[3] = 1;
+ print $$pointers_to_nums[3];

@@ -4,7 +4,7 @@ use strict;
 
  my $result = 999;
  
- for (1..100000)
+ for (1..1)
  {
  open InputGraph, '<Algo1_PA3Q1_input.txt';
  my @real_numbers = ();                                 
@@ -27,19 +27,19 @@ while (<InputGraph>){
   
   my @all_edges = keys (%edges);
   my $cycle_counter = $#real_numbers;
-  #print "nodes = $cycle_counter \n";
+  print "nodes = $cycle_counter \n";
   while ($cycle_counter!=2){
-  	my $cur_rand = rand($#all_edges-1)+1;
+  	my $cur_rand = rand($#all_edges);
         my @cur_edge = split /\s+/, $all_edges[$cur_rand];
   	while ( $real_numbers[$cur_edge[0]] == $real_numbers[$cur_edge[1]] ){
-#  		print "deleting edge $all_edges[$cur_rand] \n";
+  		print "deleting edge 1 $all_edges[$cur_rand] \n";
   		splice @all_edges, $cur_rand, 1;
                 $cur_rand = rand($#all_edges);
                 @cur_edge = split /\s+/, $all_edges[$cur_rand];
   	}
   	
   	$real_numbers[$cur_edge[0]] = $real_numbers[$cur_edge[1]];
-  #  	print "deleting edge $all_edges[$cur_rand] \n";
+    	print "deleting edge 2 $all_edges[$cur_rand] \n";
   	splice @all_edges, $cur_rand, 1;
   	$cycle_counter--;
   }
@@ -49,7 +49,7 @@ while (<InputGraph>){
     for (@temp) {
 		my @cur_edge = split /\s+/;
 		if ($real_numbers[$cur_edge[0]] == $real_numbers[$cur_edge[1]] ){
-#			print "deleting edge 2 $_ \n";
+			print "deleting edge 3 $_ \n";
 			splice @all_edges, $i, 1;
 			$i++;
 		}
@@ -57,15 +57,15 @@ while (<InputGraph>){
   
     for (@real_numbers) {
 		if ($_){
-		#	print "$_ ";
+			print "$_ ";
 		}else{
-		#	print "u ";
+			print "u ";
 		}
   	}
-#  print "\n";
+  print "\n";
   	
   for (@all_edges) {
-  #  		print "edge: $_ \n";
+    		print "edge: $_ \n";
   	}
   
   my $temp = $#all_edges+1;
