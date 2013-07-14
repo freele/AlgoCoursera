@@ -1,9 +1,9 @@
 #!usr/bin/perl
 
 use Heap::Elem::Num (NumElem);
-use Heap::Fibonacci;
+use Heap::Binary;
 
-my $heap = Heap::Fibonacci->new;
+my $heap = Heap::Binary->new;
 my $elem;
 
 foreach $i (0, 4, 2, 8, 16) {

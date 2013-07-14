@@ -35,3 +35,18 @@ print $string . "\n";
 push $provisions{'The Professor'}, 5;
 @indexes = %provisions;
 print "$provisions{'The Professor'}[2] \n";
+
+my @test = (1, 1, 1, 2, 11, 14, 15);
+for (sort {$a < $b} @test) {print "$_ \n"};
+
+my %SCC = (0,1,2,3,4,5,6,7,8,9, 10, 11, 11, 11, 12, 150, 13, 155);
+my @SCC_sizes = ( reverse sort {$a <=> $b} values %SCC);
+my @SCC_sizes_deb = ( reverse sort values %SCC);
+
+for (0..4){
+	print "$SCC_sizes[$_],";
+}
+print "\n";
+for (0..4){
+	print "$SCC_sizes_deb[$_],";
+}

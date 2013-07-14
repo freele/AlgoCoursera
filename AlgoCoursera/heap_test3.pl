@@ -1,20 +1,18 @@
-#!usr/bin/perl -w
-use strict;
+#!usr/bin/perl
 
-use Heap::Simple;
+use Heap::Elem::Num (NumElem);
+use Heap::Binary;
 
-#test
+my $heap = Heap::Binary->new;
+my $elem;
 
-my $heap = Heap::Simple->new(order => "<", elements => "Any");
+foreach $i (0, 4, 2, 8, 16) {
+	$elem = NumElem ($i);
+#	$elem->val(123);
+	$heap->add ( $elem );
+}
 
-$heap->key_insert (5, 101);
-$heap->key_insert (3, 102);
-$heap->key_insert (4, 103);
-my $test = $heap->extract_top;
-print $test;
-$test = $heap->extract_top;
-print $test;
-$test = $heap->extract_top;
-print $test;
-$test = $heap->extract_top;
-print $test;
+while (defined ( $elem = $heap->extract_top ) ){
+		print "min value = " . $elem->val. "\n";
+}
+5
